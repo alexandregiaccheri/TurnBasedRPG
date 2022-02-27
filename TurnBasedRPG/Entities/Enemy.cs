@@ -10,7 +10,7 @@ namespace TurnBasedRPG.Entities
     {
         public int decision { get; set; }
         public bool isCharged { get; set; }
-
+        
         void Charge()
         {
             this.isCharged = true;

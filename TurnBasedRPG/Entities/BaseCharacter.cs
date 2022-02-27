@@ -17,7 +17,7 @@ namespace TurnBasedRPG.Entities
 
         private static Random random = new Random();
 
-        int Attack()
+        public int Attack()
         {
             int damage = random.Next(this.Str - 2, this.Str + 3) + random.Next(5);
             int checkCrit = random.Next(1, 101);

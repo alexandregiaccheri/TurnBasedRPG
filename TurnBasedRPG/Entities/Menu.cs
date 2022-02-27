@@ -21,7 +21,7 @@ namespace TurnBasedRPG.Entities
             WriteLine();
             WriteLine("1 - Begin Battle");
             WriteLine("2 - Help");
-            WriteLine("3 - Exit");
+            WriteLine("0 - Exit");
             WriteLine();
             Write("> ");
 
@@ -73,13 +73,7 @@ namespace TurnBasedRPG.Entities
 
             return characterSelection;
         }
-        internal static void ConfirmClass(int characterSelection)
-        {
-            if (characterSelection == 1) ConfirmWarrior();
-            if (characterSelection == 2) ConfirmWarrior();
-            if (characterSelection == 3) ConfirmWarrior();
-        }
-        public static bool ConfirmWarrior()
+        internal static void WarriorInfo()
         {
             Clear();
             WriteLine("Warrior");
@@ -89,16 +83,79 @@ namespace TurnBasedRPG.Entities
             WriteLine("Low Inteligence");
             WriteLine();
             WriteLine("High HP");
-            WriteLine("Low MP");
+            WriteLine("Low MP");            
+        }
+        internal static void RogueInfo()
+        {
+            Clear();
+            WriteLine("Rogue");
+            WriteLine();
+            WriteLine("Medium Strength");
+            WriteLine("High Agility");
+            WriteLine("Low Inteligence");
+            WriteLine();
+            WriteLine("Medium HP");
+            WriteLine("Medium MP");
+        }
+        internal static void WizardInfo()
+        {
+            Clear();
+            WriteLine("Wizard");
+            WriteLine();
+            WriteLine("Low Strength");
+            WriteLine("Medium Agility");
+            WriteLine("High Inteligence");
+            WriteLine();
+            WriteLine("Low HP");
+            WriteLine("High MP");
+        }
+        internal static bool AskYesOrNo()
+        {
+            string userInput = ReadLine();
+            bool confirmed = false;
+            while (userInput.ToUpper() != "Y" && userInput.ToUpper() != "N")
+            {
+                Clear();
+                WriteLine("Please respond with Y or N!");
+                Write("> ");
+                userInput = ReadLine();
+            }
+            if (userInput.ToUpper() == "Y") confirmed = true;
+            if (userInput.ToUpper() == "N") confirmed = false;
+            return confirmed;
+        }
+        internal static bool ConfirmClass(int characterSelection)
+        {
+            if (characterSelection == 1) WarriorInfo();
+            if (characterSelection == 2) RogueInfo();
+            if (characterSelection == 3) WizardInfo();
+            
             WriteLine();
             WriteLine("Confirm Selection? Y/N");
             Write("> ");
+            
+            return AskYesOrNo();
+        }
+        internal static bool IsNamingRequired()
+        {
+            Clear();
+            WriteLine("Do you want to name your character? Y/N");
+            WriteLine();
+            Write("> ");
 
-            string confirmSelection;
-            confirmSelection = ReadLine();
+            return AskYesOrNo();
+        }
+        internal static string NameYourCharacter()
+        {
+            Clear();
+            Write("Please enter your character name: ");
+            string characterName = ReadLine();
 
-            if (confirmSelection.ToUpper() == "Y") return true;
-            else return false;
+            Clear();
+            WriteLine($"Is this name \"{characterName}\" ok?");
+            bool confirmation = AskYesOrNo();
+            if (confirmation == true) return characterName;
+            else return NameYourCharacter();
         }
     }
 }
