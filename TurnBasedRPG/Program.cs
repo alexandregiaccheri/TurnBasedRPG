@@ -1,12 +1,9 @@
 ﻿using TurnBasedRPG.Entities;
 
-//welcome message
 Menu.Welcome();
 
-//main menu and selection
 int mainOption = Menu.MainMenu();
 
-//program running
 while (mainOption != 0)
 {
     //Begin Battle
@@ -41,38 +38,39 @@ while (mainOption != 0)
         Hero hero = new Hero();
         
         //Create Warrior
-        if (characterSelection == 1)
+        switch (characterSelection)
         {
-            hero.Name = characterName;
-            hero.HP = 150;
-            hero.MP = 2;
-            hero.Str = 8;
-            hero.Agi = 5;
-            hero.Int = 2;
-        }
+            //Warrior
+            case 1:
+                hero.Name = characterName;
+                hero.HP = 150;
+                hero.MP = 2;
+                hero.Str = 8;
+                hero.Agi = 5;
+                hero.Int = 2;
+                break;
 
-        //Create Rogue
-        else if (characterSelection == 2)
-        {
-            hero.Name = characterName;
-            hero.HP = 110;
-            hero.MP = 5;
-            hero.Str = 5;
-            hero.Agi = 11;
-            hero.Int = 2;
-        }
+            //Rogue
+            case 2:
+                hero.Name = characterName;
+                hero.HP = 110;
+                hero.MP = 5;
+                hero.Str = 5;
+                hero.Agi = 11;
+                hero.Int = 2;
+                break;
 
-        //Create Wizard
-        else
-        {
-            hero.Name = characterName;
-            hero.HP = 80;
-            hero.MP = 8;
-            hero.Str = 2;
-            hero.Agi = 5;
-            hero.Int = 8;
+            //Wizard
+            case 3:
+                hero.Name = characterName;
+                hero.HP = 80;
+                hero.MP = 8;
+                hero.Str = 2;
+                hero.Agi = 5;
+                hero.Int = 8;
+                break;
         }
-
+        
         //dummy enemy
         Enemy enemy = new Enemy
         {

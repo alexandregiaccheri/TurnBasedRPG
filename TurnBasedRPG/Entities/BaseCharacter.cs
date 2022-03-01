@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TurnBasedRPG.Entities
+﻿namespace TurnBasedRPG.Entities
 {
     internal abstract class BaseCharacter
     {
@@ -14,8 +8,9 @@ namespace TurnBasedRPG.Entities
         public int Str { get; set; }
         public int Agi { get; set; }
         public int Int { get; set; }
+        public bool isCharged { get; set; }
 
-        private static Random random = new Random();
+        protected static Random random = new Random();
 
         public int Attack()
         {
@@ -32,11 +27,14 @@ namespace TurnBasedRPG.Entities
             }            
             return 0;
         }
-
         int MagicAttack()
         {
             int damage = random.Next(this.Int - 2, this.Int + 3) + random.Next(5, 10);
             return damage;
+        }
+        public void Charge()
+        {
+            this.isCharged = true;
         }
     }
 }
