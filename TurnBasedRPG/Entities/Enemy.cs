@@ -2,6 +2,18 @@
 {
     internal class Enemy : BaseCharacter
     {
+        public Enemy(string _name, int _hp, int _mp,
+            int _str, int _agi, int _int, int _difficulty)
+        {
+            this.Name = _name;
+            this.HP = _hp;
+            this.MP = _mp;
+            this.Str = _str;
+            this.Agi = _agi;
+            this.Int = _int;
+            this.DifficultyLevel = _difficulty;
+        }
+
         public int Decision { get; set; }
 
         /* Difficulty level should be:
@@ -61,7 +73,7 @@
                         else return 2;
                     }
             }
-            
+
             return 0;
         }
     }

@@ -1,120 +1,114 @@
 ﻿using TurnBasedRPG.Entities;
 
 Menu.Welcome();
-
 int mainOption = Menu.MainMenu();
 
 while (mainOption != 0)
 {
-    //Begin Battle
+    //Start Game
     if (mainOption == 1)
     {
-        int characterSelection;
-        bool confirmClass;
-        
         //Ask and confirms what character class to create
-        do
+        int characterSelection = 0;
+        bool confirmClass = false;
+        while (confirmClass != true)
         {
             characterSelection = Menu.CharacterSelection();
             confirmClass = Menu.ConfirmClass(characterSelection);
-        } while (confirmClass != true);
-        
-        //Ask if custom name is required
+        }
+
+        //Ask if custom name is required and what name to use
         bool isNameRequired = Menu.IsNamingRequired();
         string characterName;
+        if (isNameRequired == true) characterName = Menu.NameYourCharacter();
+        else characterName = "Zodiark";
 
-        //If decided to use custom name
-        if (isNameRequired == true)
-        {
-            characterName = Menu.NameYourCharacter();
-        }
+        //These variables will be used for both player and cpu characters
+        int _hp = 0, _mp = 0, _str = 0, _agi = 0, _int = 0;
 
-        //If decided to use default name
-        else
-        {
-            characterName = "You";
-        }
-
-        Hero hero = new Hero();
-        
-        //Create Warrior
         switch (characterSelection)
         {
             //Warrior
             case 1:
-                hero.Name = characterName;
-                hero.HP = 150;
-                hero.MP = 2;
-                hero.Str = 8;
-                hero.Agi = 5;
-                hero.Int = 2;
+                _hp = 500;
+                _mp = 2;
+                _str = 50;
+                _agi = 15;
+                _int = 15;
                 break;
 
             //Rogue
             case 2:
-                hero.Name = characterName;
-                hero.HP = 110;
-                hero.MP = 5;
-                hero.Str = 5;
-                hero.Agi = 11;
-                hero.Int = 2;
+                _hp = 500;
+                _mp = 2;
+                _str = 50;
+                _agi = 15;
+                _int = 15;
                 break;
 
             //Wizard
             case 3:
-                hero.Name = characterName;
-                hero.HP = 80;
-                hero.MP = 8;
-                hero.Str = 2;
-                hero.Agi = 5;
-                hero.Int = 8;
+                _hp = 500;
+                _mp = 2;
+                _str = 50;
+                _agi = 15;
+                _int = 15;
                 break;
         }
-        
-        //dummy enemy
-        Enemy enemy = new Enemy
+
+        Hero hero = new Hero(characterName, _hp, _mp, _str, _agi, _int);
+
+        //Define enemy and AI
+        int _difficultyLevel = Menu.SelectDifficulty();
+        int enemySelection = Menu.SelectEnemy();
+
+        //Override variable values with the enemy ones
+        switch (enemySelection)
         {
-            Name = "Bichinho",
-            HP = 180,
-            MP = 5,
-            Str = 5,
-            Agi = 2,
-            Int = 2
-        };
-
-        while (hero.HP > 0 && enemy.HP > 0)
-        {
-            Console.Clear();
-            int damage;
-            damage = enemy.Attack();
-            hero.HP -= damage;
-
-            if (hero.HP <= 0)
-            {
-                Console.WriteLine($"{hero.Name} has been defeated!");
-                Console.ReadLine();
+            //Skeleton Warrior
+            case 1:
+                characterName = "Skeleton Warrior";
+                _hp = 500;
+                _mp = 2;
+                _str = 50;
+                _agi = 15;
+                _int = 15;
                 break;
-            }
-            Console.WriteLine($"{enemy.Name} hits {hero.Name} for {damage} HP!");
-            Console.WriteLine($"{hero.Name} HP is now {hero.HP}");
-            Console.ReadLine();
 
-            damage = hero.Attack();
-            enemy.HP -= damage;
-
-            if (enemy.HP <= 0)
-            {
-                Console.WriteLine($"{enemy.Name} has been defeated!");
-                Console.ReadLine();
+            //Skeleton Rogue
+            case 2:
+                characterName = "Skeleton Rogue";
+                _hp = 500;
+                _mp = 2;
+                _str = 50;
+                _agi = 15;
+                _int = 15;
                 break;
-            }
-            Console.WriteLine($"{hero.Name} hits {enemy.Name} for {damage} HP!");
-            Console.WriteLine($"{enemy.Name} HP is now {enemy.HP}");
-            Console.ReadLine();
 
+            //Skeleton Wizard
+            case 3:
+                characterName = "Skeleton Wizard";
+                _hp = 500;
+                _mp = 2;
+                _str = 50;
+                _agi = 15;
+                _int = 15;
+                break;
 
+            //The Almighty Saru
+            case 4:
+                characterName = "The Almighty Saru";
+                _hp = 999;
+                _mp = 0;
+                _str = 75;
+                _agi = 0;
+                _int = 0;
+                break;
         }
-        
+
+        Enemy enemy = new Enemy(characterName, _hp, _mp, _str, _agi, _int, _difficultyLevel);
+
+        Battle.BattleStart(hero, enemy);
     }
     mainOption = Menu.MainMenu();
 }
