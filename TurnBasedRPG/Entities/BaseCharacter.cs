@@ -11,131 +11,50 @@
         public bool isCharged { get; set; }
         public bool isDefending { get; set; }
 
-        public static Random random = new Random();
+        //Static random to make sure values won't repeat without having to deal with seeds
+        protected static Random random = new Random();
 
-        private bool AgilityCheck()
+        //Performs a random roll for critical attack, higher agi == higher chance
+        protected bool CriticalCheck()
         {
             if (random.Next(1, 101) < this.Agi) return true;
             else return false;
         }
 
-        public int Attack(Enemy target)
-        {
-            Console.Clear();
-            Console.WriteLine($"{this.Name} attacks {target.Name}");
-            Task.Delay(500).Wait();
-            Console.Clear();
-            Console.WriteLine($"{this.Name} attacks {target.Name}.");
-            Task.Delay(500).Wait();
-            Console.Clear();
-            Console.WriteLine($"{this.Name} attacks {target.Name}..");
-            Task.Delay(500).Wait();
-            Console.Clear();
-            Console.WriteLine($"{this.Name} attacks {target.Name}...");
-            Task.Delay(1000).Wait();
-
-            //Check if the attack missed
-            if (AgilityCheck() == true)
-            {
-                Console.WriteLine($"{this.Name}'s attack missed!");
-                if (this.isCharged == true) this.isCharged = false;
-                return 0;
-            }
-
-            int damageRoll = random.Next(this.Str - 5, this.Str + 6);
-
-            //Check if the attack was a critical hit
-            if (AgilityCheck() == true)
-            {
-                Console.WriteLine("A critical hit!");
-                Task.Delay(500).Wait();
-                damageRoll = Convert.ToInt32(Convert.ToDouble(damageRoll) * 1.25);
-            }
-
-            if (this.isCharged == true)
-            {
-                damageRoll *= 3;
-                this.isCharged = false;
-            }
-
-            Console.Write($"{this.Name}'s attack deals {damageRoll} damage!");
-            Task.Delay(2500).Wait();
-            return damageRoll;
-        }
-
-        public int Attack(Hero target)
-        {
-            Console.Clear();
-            Console.WriteLine($"{this.Name} attacks {target.Name}");
-            Task.Delay(500).Wait();
-            Console.Clear();
-            Console.WriteLine($"{this.Name} attacks {target.Name}.");
-            Task.Delay(500).Wait();
-            Console.Clear();
-            Console.WriteLine($"{this.Name} attacks {target.Name}..");
-            Task.Delay(500).Wait();
-            Console.Clear();
-            Console.WriteLine($"{this.Name} attacks {target.Name}...");
-            Task.Delay(1000).Wait();
-
-            //Check if the attack missed
-            if (AgilityCheck() == true)
-            {
-                Console.WriteLine($"{this.Name}'s attack missed!");
-                Task.Delay(2500).Wait();
-                if (this.isCharged == true) this.isCharged = false;
-                return 0;
-            }
-
-            int damageRoll = random.Next(this.Str - 5, this.Str + 6);
-
-            //Check if the attack was a critical hit
-            if (AgilityCheck() == true)
-            {
-                Console.WriteLine("A critical hit!");
-                Task.Delay(500).Wait();
-                damageRoll = Convert.ToInt32(Convert.ToDouble(damageRoll) * 1.25);
-            }
-
-            if (this.isCharged == true)
-            {
-                damageRoll *= 3;
-                this.isCharged = false;
-            }
-
-            Console.Write($"{this.Name}'s attack deals {damageRoll} damage!");
-            Task.Delay(2500).Wait();
-            return damageRoll;
-        }
-
-        public int MagicAttack(Hero target)
-        {
-            int damageRoll = random.Next(this.Int, this.Int + 16);
-            Console.WriteLine($"{this.Name}'s magic attack deals {damageRoll} damage!");
-            return damageRoll;
-        }
-
-        public int MagicAttack(Enemy target)
-        {
-            int damageRoll = random.Next(this.Int, this.Int + 16);
-            Console.WriteLine($"{this.Name}'s magic attack deals {damageRoll} damage!");
-            return damageRoll;
-        }
-
+        //Performs a charge, increasing the next offensive action damage output
         public void Charge()
         {
+            //Initiating a charge also means that this entity is not defending anymore
+            this.isDefending = false;
             Console.Clear();
-            Console.WriteLine($"{this.Name} begins channeling power...");
-            Task.Delay(3000).Wait();
-            this.isCharged = true;
+
+            if (this.MP > 0)
+            {
+                Console.WriteLine($"{this.Name} is charging a powerful attack...");
+                Task.Delay(2500).Wait();
+                this.isCharged = true;
+                this.MP--;
+            }
+
+            else
+            {
+                Console.WriteLine("You try to charge an attack, but you have no energy left...");
+                Task.Delay(3000).Wait();
+            }
         }
 
+        //Sets defending to true, drastically reducing incoming damage for the turn
         public void Defend()
         {
             Console.Clear();
             Console.WriteLine($"{this.Name} is defending...");
-            Task.Delay(3000).Wait();
+            Task.Delay(2500).Wait();
             this.isDefending = true;
+        }
+
+        public void StopDefending()
+        {
+            this.isDefending = false;
         }
     }
 }

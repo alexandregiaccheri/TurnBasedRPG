@@ -31,28 +31,28 @@ while (mainOption != 0)
             //Warrior
             case 1:
                 _hp = 500;
-                _mp = 2;
+                _mp = 3;
                 _str = 50;
                 _agi = 15;
-                _int = 15;
+                _int = 20;
                 break;
 
             //Rogue
             case 2:
-                _hp = 500;
-                _mp = 2;
-                _str = 50;
-                _agi = 15;
-                _int = 15;
+                _hp = 400;
+                _mp = 5;
+                _str = 40;
+                _agi = 30;
+                _int = 30;
                 break;
 
             //Wizard
             case 3:
-                _hp = 500;
-                _mp = 2;
-                _str = 50;
-                _agi = 15;
-                _int = 15;
+                _hp = 350;
+                _mp = 15;
+                _str = 20;
+                _agi = 20;
+                _int = 50;
                 break;
         }
 
@@ -65,34 +65,31 @@ while (mainOption != 0)
         //Override variable values with the enemy ones
         switch (enemySelection)
         {
-            //Skeleton Warrior
             case 1:
-                characterName = "Skeleton Warrior";
+                characterName = "Asterius";
                 _hp = 500;
-                _mp = 2;
+                _mp = 3;
                 _str = 50;
                 _agi = 15;
-                _int = 15;
+                _int = 20;
                 break;
-
-            //Skeleton Rogue
+            
             case 2:
-                characterName = "Skeleton Rogue";
-                _hp = 500;
-                _mp = 2;
-                _str = 50;
-                _agi = 15;
-                _int = 15;
+                characterName = "Dolus";
+                _hp = 400;
+                _mp = 5;
+                _str = 40;
+                _agi = 30;
+                _int = 30;
                 break;
-
-            //Skeleton Wizard
+            
             case 3:
-                characterName = "Skeleton Wizard";
-                _hp = 500;
-                _mp = 2;
-                _str = 50;
-                _agi = 15;
-                _int = 15;
+                characterName = "Athena";
+                _hp = 350;
+                _mp = 15;
+                _str = 20;
+                _agi = 20;
+                _int = 50;
                 break;
 
             //The Almighty Saru
@@ -101,7 +98,7 @@ while (mainOption != 0)
                 _hp = 999;
                 _mp = 0;
                 _str = 75;
-                _agi = 0;
+                _agi = 10;
                 _int = 0;
                 break;
         }

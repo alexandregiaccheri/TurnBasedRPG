@@ -30,19 +30,16 @@ namespace TurnBasedRPG.Entities
             switch (action)
             {
                 case 1:
-                    if (enemy.isDefending == true)
-                        enemy.HP -= Convert.ToInt32(Convert.ToDouble(hero.Attack(enemy)) / 3.0);
-                    else enemy.HP -= hero.Attack(enemy);
+                    enemy.HP -= hero.Attack(enemy);
                     break;
 
                 case 2:
-                    if (enemy.isDefending == true)
-                        enemy.HP -= Convert.ToInt32(Convert.ToDouble(hero.MagicAttack(enemy)) / 1.5);
-                    else enemy.HP -= hero.MagicAttack(enemy);
+                    enemy.HP -= hero.MagicAttack(enemy);
                     break;
 
                 case 3:
                     hero.Charge();
+                    hero.StopDefending();
                     break;
 
                 case 4:
@@ -57,19 +54,16 @@ namespace TurnBasedRPG.Entities
             switch (action)
             {
                 case 1:
-                    if (hero.isDefending == true)
-                        hero.HP -= Convert.ToInt32(Convert.ToDouble(enemy.Attack(hero)) / 4.0);
-                    else hero.HP -= enemy.Attack(hero);
+                    hero.HP -= enemy.Attack(hero);
                     break;
 
                 case 2:
-                    if (hero.isDefending == true)
-                        hero.HP -= Convert.ToInt32(Convert.ToDouble(enemy.MagicAttack(hero)) / 2.0);
-                    else hero.HP -= enemy.MagicAttack(hero);
+                    hero.HP -= enemy.MagicAttack(hero);
                     break;
 
                 case 3:
                     enemy.Charge();
+                    enemy.StopDefending();
                     break;
 
                 case 4:
@@ -78,6 +72,7 @@ namespace TurnBasedRPG.Entities
             }
         }
 
+        //Battle header with HP and MP
         internal static void DisplayStats(Hero hero, Enemy enemy)
         {
             WriteLine(">>>>>>>>>>>>>>>>>>>");
@@ -88,6 +83,7 @@ namespace TurnBasedRPG.Entities
             WriteLine();
         }
 
+        //Player turn battle menu
         internal static int BattleOption(Hero hero, Enemy enemy)
         {
             WriteLine();
@@ -100,7 +96,7 @@ namespace TurnBasedRPG.Entities
             WriteLine();
             Write("> ");
 
-            int playerInput = 0;
+            int playerInput;
             do
             {
                 try
@@ -121,19 +117,22 @@ namespace TurnBasedRPG.Entities
             return playerInput;
         }
 
+        //When HP reaches zero
         internal static void BattleEnd(Hero hero, Enemy enemy)
         {
             if (hero.HP <= 0)
             {
-                WriteLine($"You lose, {hero.Name} has been defeated...");
-                WriteLine("Better luck next time :(");
+                Clear();
+                WriteLine($"{hero.Name} has been defeated...");
+                WriteLine("Better luck next time!");
                 WriteLine();
                 Write("Press ENTER to continue...");
                 ReadLine();
             }
             if (enemy.HP <= 0)
             {
-                WriteLine($"You won! {enemy.Name} has been defeated!");
+                Clear();
+                WriteLine($"{enemy.Name} has been defeated!");
                 WriteLine("Congratulations!");
                 WriteLine();
                 Write("Press ENTER to continue...");
