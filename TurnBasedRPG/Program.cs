@@ -1,8 +1,7 @@
-﻿using TurnBasedRPG.Entities;
+﻿using TurnBasedRPG.Classes;
 
-Menu.Welcome();
+//Initiates the game menu
 int mainOption = Menu.MainMenu();
-
 while (mainOption != 0)
 {
     //Start Game
@@ -73,7 +72,7 @@ while (mainOption != 0)
                 _agi = 15;
                 _int = 20;
                 break;
-            
+
             case 2:
                 characterName = "Dolus";
                 _hp = 400;
@@ -82,7 +81,7 @@ while (mainOption != 0)
                 _agi = 30;
                 _int = 30;
                 break;
-            
+
             case 3:
                 characterName = "Athena";
                 _hp = 350;
@@ -106,6 +105,12 @@ while (mainOption != 0)
         Enemy enemy = new Enemy(characterName, _hp, _mp, _str, _agi, _int, _difficultyLevel);
 
         Battle.BattleStart(hero, enemy);
+    }
+
+    //Game Help
+    if (mainOption == 2)
+    {
+        Menu.DisplayHelp();
     }
     mainOption = Menu.MainMenu();
 }

@@ -1,4 +1,4 @@
-﻿namespace TurnBasedRPG.Entities
+﻿namespace TurnBasedRPG.Classes
 {
     internal class Hero : BaseCharacter
     {
@@ -13,16 +13,18 @@
             this.Int = _int;
         }
 
-        protected bool DodgeCheck(Enemy target)
+        //Check for evasion, higher agi == higher chance to evade
+        internal bool DodgeCheck(Enemy target)
         {
             if (random.Next(1, 101) < (target.Agi / 2)) return true;
             else return false;
         }
 
-        public int Attack(Enemy target)
+        //Attack using the Str attribute
+        internal int Attack(Enemy target)
         {
             //Initiating an attack also means that this entity is not defending anymore
-            this.isDefending = false;
+            this.IsDefending = false;
 
             Console.Clear();
             Console.WriteLine($"{this.Name} attacks {target.Name}...");
@@ -35,7 +37,7 @@
                 Task.Delay(2000).Wait();
 
                 //Deals no damage and loses charged state
-                if (this.isCharged == true) this.isCharged = false;
+                if (this.IsCharged == true) this.IsCharged = false;
                 return 0;
             }
 
@@ -52,25 +54,25 @@
             }
 
             //Check if it was a charged attack and changes charged to false
-            if (this.isCharged == true)
+            if (this.IsCharged == true)
             {
                 if (isThisACritical == true)
                 {
                     damageRoll = Convert.ToInt32(Convert.ToDouble(damageRoll * 1.2));
-                    this.isCharged = false;
+                    this.IsCharged = false;
                 }
                 else
                 {
                     damageRoll *= 3;
-                    this.isCharged = false;
+                    this.IsCharged = false;
                 }
             }
 
             //Check if the target is defending to mitigate damage
-            if (target.isDefending == true)
+            if (target.IsDefending == true)
             {
                 damageRoll /= 3;
-                target.isDefending = false;
+                target.IsDefending = false;
             }
 
             Console.Write($"{this.Name} hits {target.Name} for {damageRoll} damage!");
@@ -79,12 +81,13 @@
             return damageRoll;
         }
 
-        public int MagicAttack(Enemy target)
+        //Attack using the Int attribute
+        internal int MagicAttack(Enemy target)
         {
             if (this.MP > 0)
             {
                 //Initiating a magic attack also means that this entity is not defending anymore
-                this.isDefending = false;
+                this.IsDefending = false;
 
                 Console.Clear();
                 Console.WriteLine($"{this.Name} casts a powerful spell upon {target.Name}...");
@@ -97,24 +100,24 @@
                     Task.Delay(2000).Wait();
 
                     //Deals no damage and loses charged state
-                    if (this.isCharged == true) this.isCharged = false;
+                    if (this.IsCharged == true) this.IsCharged = false;
                     return 0;
                 }
 
                 int damageRoll = random.Next(this.Int, this.Int + 16);
 
                 //Check if it was a charged attack and changes charged to false
-                if (this.isCharged == true)
+                if (this.IsCharged == true)
                 {
                     damageRoll *= 4;
-                    this.isCharged = false;
+                    this.IsCharged = false;
                 }
 
                 //Check if the target is defending to mitigate damage
-                if (target.isDefending == true)
+                if (target.IsDefending == true)
                 {
                     damageRoll /= 2;
-                    target.isDefending = false;
+                    target.IsDefending = false;
                 }
 
                 Console.WriteLine($"{this.Name}'s spell hits {target.Name} for {damageRoll} damage!");

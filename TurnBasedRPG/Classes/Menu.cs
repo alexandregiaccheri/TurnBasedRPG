@@ -1,16 +1,10 @@
 ﻿using static System.Console;
 
-namespace TurnBasedRPG.Entities
+namespace TurnBasedRPG.Classes
 {
     internal static class Menu
     {
-        public static void Welcome()
-        {
-            WriteLine("Welcome, Press ENTER to continue");
-            ReadLine();
-        }
-
-        public static int MainMenu()
+        internal static int MainMenu()
         {
             Clear();
             WriteLine("############################");
@@ -19,17 +13,18 @@ namespace TurnBasedRPG.Entities
             WriteLine("# # #                  # # #");
             WriteLine("############################");
             WriteLine("#                          #");
+            WriteLine("#         Welcome!         #");
+            WriteLine("#                          #");
             WriteLine("#     Select an option     #");
             WriteLine("#                          #");
             WriteLine("#     1 - Begin Battle     #");
-            WriteLine("#     2 - Help/Info        #");
+            WriteLine("#     2 - Game Help        #");
             WriteLine("#     0 - Exit             #");
             WriteLine("#                          #");
             WriteLine("############################");
             WriteLine("# # #                  # # #");
             WriteLine("############################");
             WriteLine("#      @alexandregiaccheri #");
-            WriteLine("#                   2022   #");
             WriteLine("############################");
             WriteLine();
             Write("> ");
@@ -55,7 +50,17 @@ namespace TurnBasedRPG.Entities
 
         }
 
-        public static int CharacterSelection()
+        internal static void DisplayHelp()
+        {
+            Clear();
+            string[] lines = File.ReadAllLines(Environment.CurrentDirectory + @"\GameHelp.txt");
+            foreach (string line in lines) WriteLine(line);
+            WriteLine();
+            WriteLine("Press ENTER to continue...");
+            ReadLine();
+        }
+
+        internal static int CharacterSelection()
         {
             Clear();
             WriteLine("###################################################");
@@ -168,7 +173,7 @@ namespace TurnBasedRPG.Entities
             WriteLine("######################");
             WriteLine();
             Write("> ");
-            
+
             int userInput;
             try
             {

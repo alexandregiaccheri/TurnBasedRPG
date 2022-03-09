@@ -1,0 +1,43 @@
+﻿Game help
+---------
+First and foremost, this is not a perfectly tuned game,
+it's a project made to demonstrate and solidify my OOP
+skills and knowledge. Some things may be overpowered, as
+I'm not a gaming battle systems designer/engineer!
+-------------------------------------------------------------------
+1 - Attributes
+	The game runs on three attributes, Strength, Intelligence
+	and Agility. Strength is used for physical attacks,
+	Intelligence for magical attacks and Agility governs
+	critical hit damage, chance and dodge chance.
+-------------------------------------------------------------------
+2 - Character classes
+	You can choose one of three classes, the warrior has high
+	HP, high strength, fair agility and low intelligence. The
+	rogue has high agility, and is overall balanced (a critical
+	hit from the rogue will hurt a LOT). Lastly, the wizard
+	has low strength but high intelligence.
+-------------------------------------------------------------------
+3 - Attack vs Magic Attack
+	The attack option is the physical offensive action, so it
+	benefits from high strength and can be a critical hit.
+	The magic attack option is based on the intelligence value
+	it can deal very high damage but cannot be a critical hit.
+-------------------------------------------------------------------
+4 - Charge and Defend
+	Charging makes your next offensive skill deal very high
+	damage and it also costs 1MP. Defending will dramatically 
+	mitigate the next attack or magic attack incoming damage.
+-------------------------------------------------------------------
+5 - HP and MP
+	Health Points (HP): if it reaches zero, you lose! Your
+	objective is to bring the enemy's HP down to zero.
+	Mana Points (MP): your magic resource. You need MP to cast
+	spells (magic attacks) and charge attacks.
+-------------------------------------------------------------------
+6 - Enemies
+	You have four enemies to choose from. The first three are
+	just like the three hero classes, focusing on strength,
+	agility or intelligence. The fourth enemy is an unfair
+	challenge. Also, the difficulty level you choose dictates
+	how the (simple) AI will behave.
